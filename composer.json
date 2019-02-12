@@ -1,0 +1,15 @@
+{
+    "name": "twinkle/log",
+    "description": "PSR3 日志接口的实现",
+    "require": {
+        "psr/log": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Twinkle\\Log\\": "src/"
+        }
+    }
+}
