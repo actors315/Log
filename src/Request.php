@@ -34,7 +34,9 @@ class Request
             return $requestId;
         }
 
-        if (function_exists('session_create_id')) {
+        if (!empty($_SERVER['HTTP_REQUEST_ID'])) {
+            return $_SERVER['HTTP_REQUEST_ID'];
+        } elseif (function_exists('session_create_id')) {
             $hash = session_create_id();
         } else {
             $data = uniqid('', true);
