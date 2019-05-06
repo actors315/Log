@@ -73,15 +73,5 @@ abstract class Log implements StorageInterface
         return [];
     }
 
-    public function flushLogs()
-    {
-        if (count($this->logQueue)) {
-            $content = '';
-            foreach ($this->logQueue as $line) {
-                $content .= $line;
-            }
-            $this->logQueue = [];
-            $this->write($content);
-        }
-    }
+    abstract public function flushLogs();
 }

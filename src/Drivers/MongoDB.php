@@ -21,4 +21,9 @@ class MongoDB extends Log
     {
         // TODO: Implement write() method.
     }
+
+    public function flushLogs()
+    {
+        // TODO: Implement flushLogs() method.
+    }
 }

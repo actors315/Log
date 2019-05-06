@@ -8,8 +8,6 @@
 
 namespace Twinkle\Log\Drivers;
 
-
-use Twinkle\Library\Model\Model;
 use Twinkle\Log\Format\MysqlLine;
 
 class Mysql extends Log
@@ -17,7 +15,7 @@ class Mysql extends Log
 
     protected $model = null;
 
-    public function __construct(Model $model, array $config = [])
+    public function __construct($model, array $config = [])
     {
         $this->model = $model;
         parent::__construct($config);
@@ -26,11 +24,28 @@ class Mysql extends Log
     public function process($level, $trace, $message, $context)
     {
         $log = new MysqlLine($message, $trace, $level, $context);
-        $this->write($log->format());
+        if ($this->useBuffer) {
+            $this->logQueue[] = $log->format();
+            if (count($this->logQueue) >= $this->bufferSize) {
+                $this->flushLogs();
+            }
+        } else {
+            $this->write([$log->format()]);
+        }
     }
 
-    public function write($log)
+    public function write($logList)
     {
-        $this->model->insertData($log);
+        $this->model->batchInsert($logList);
+    }
+
+
+    public function flushLogs()
+    {
+        if (count($this->logQueue)) {
+            $tempList = $this->logQueue;
+            $this->logQueue = [];
+            $this->write($tempList);
+        }
     }
 }

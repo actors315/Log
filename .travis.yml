@@ -12,9 +12,9 @@ install:
   - composer install --prefer-dist --optimize-autoloader --quiet
 
 before_script:
-  - cd tests/
-  - git clone -b gh-pages https://github.com/actors315/Log.git tests/
-  - cd ..
+#  - cd tests/
+#  - git clone -b gh-pages https://github.com/actors315/Log.git tests/
+#  - cd ..
 
 script:
   - ./vendor/bin/phpunit --coverage-html=./tests/tests/$(phpenv version-name)/

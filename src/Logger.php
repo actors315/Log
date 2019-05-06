@@ -8,11 +8,10 @@
 
 namespace Twinkle\Log;
 
-
-use Psr\Log\AbstractLogger;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 
-class Logger extends AbstractLogger
+class Logger implements LoggerInterface
 {
     protected $logger;
 

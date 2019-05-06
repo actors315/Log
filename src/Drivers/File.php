@@ -74,4 +74,16 @@ class File extends Log
     {
         return file_put_contents($this->logFile, $line, FILE_APPEND);
     }
+
+
+    public function flushLogs()
+    {
+        if (count($this->logQueue)) {
+            $content = '';
+            while ($line = array_shift($this->logQueue)) {
+                $content .= $line;
+            }
+            $this->write($content);
+        }
+    }
 }
